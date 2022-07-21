@@ -4,11 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var cors = require('cors');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var languagesRouter = require('./routes/languages');
 var jlistRouter = require('./routes/JList');
-
+var postsRouter = require('./routes/posts');
+var commentRouter = require('./routes/comments');
 
 var app = express();
 
@@ -17,6 +20,8 @@ let test = "git";
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.use(cors());
 
 
 app.use(logger('dev'));
@@ -31,6 +36,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/languages', languagesRouter);
 app.use('/users/json_list', jlistRouter);
+app.use('/posts', postsRouter);
+app.use('/comments', commentRouter);
 
 
 app.get("/test",(request,response)=>{
